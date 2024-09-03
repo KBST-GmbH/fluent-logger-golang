@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"../fluent"
+	"github.com/fluent/fluent-logger-golang/fluent"
 )
 
 func main() {
