@@ -454,11 +454,13 @@ func (f *Fluent) connect(ctx context.Context) (err error) {
 		err = NewErrUnknownNetwork(f.Config.FluentNetwork)
 	}
 
-	if err == nil {
-		f.latestReconnectTime = time.Now()
+	if err != nil {
+		f.conn = nil // tls.DialWithDialer returns "typed nil" on error
+		return err
 	}
 
-	return err
+	f.latestReconnectTime = time.Now()
+	return nil
 }
 
 var errIsClosing = errors.New("fluent logger is closing")
